@@ -1,5 +1,5 @@
 const urlServices = require("../../services/url");
-const ShortUniqueId = require('short-unique-id');
+const ShortUniqueId = require("short-unique-id");
 const catchAsync = require("../../utils/catchAsync");
 
 const createShortUrl = catchAsync(async (req, res, next) => {
@@ -8,7 +8,10 @@ const createShortUrl = catchAsync(async (req, res, next) => {
   const shortUrl = `${process.env.BASE_URL}/${urlId}`;
   const body = { urlId, originalUrl, shortUrl };
   const url = await urlServices.createShortUrl(body);
-  if (!url) return res.status(500).json({ message: "Something went wrong" });
+  if (!url)
+    return res
+      .status(200)
+      .json({ success: false, message: "Something went wrong!", data: null });
 
   if (url.err) {
     const { err } = url;
