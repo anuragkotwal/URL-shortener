@@ -3,6 +3,7 @@ const schemas = require('./user.validator')
 const userController = require('../controller/user')
 const router = require('express').Router()
 
-router.post('/create-short-url', validateSchema(schemas.createShortUrlValidator), userController.createShortUrl)
+router.post('/short', validateSchema(schemas.createShortUrlValidator), userController.createShortUrl)
+router.get('/:urlId', userController.getUrl)
 
 module.exports = router

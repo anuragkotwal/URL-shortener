@@ -41,7 +41,7 @@ app.use('/api/health-check', (req, res) => {
     return res.status(200).json({ success: true, message: '', data: null })
 })
 
-app.use('/api', router)
+app.use('/', router)
 
 app.use((req, res, next) => {
     logger.info('Req', {

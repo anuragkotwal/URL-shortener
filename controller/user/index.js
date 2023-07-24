@@ -1,3 +1,3 @@
-const createShortUrl = require('./createShortUrl')
-
-module.exports = { createShortUrl }
+const createShortUrl = require("./createShortUrl");
+const getUrl = require("./getUrl");
+module.exports = { createShortUrl, getUrl };
