@@ -23,8 +23,8 @@ connect(process.env.DATABASE_URL, {
 
 const whitelist = [
   /http:\/\/localhost:[0-9]{4}/,
-  "https://url-shortener-frontend-rho.vercel.app/",
-  "https://url-shortener-frontend-anuragkotwal.vercel.app/",
+  "https://url-shortener-frontend-rho.vercel.app",
+  "https://url-shortener-frontend-anuragkotwal.vercel.app",
 ];
 const corsOptions = {
   origin: function (origin, callback) {
