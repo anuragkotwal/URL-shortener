@@ -27,9 +27,25 @@ const whitelist = [
   /^https:\/\/url-shortener-frontend-anuragkotwal\.vercel\.app\/?$/,
   /^https:\/\/(www\.)?anuragkotwal\.in\/?$/,
 ];
+
 const corsOptions = {
   origin: function (origin, callback) {
-    if (!origin || whitelist.some((pattern) => pattern.test(origin))) {
+    logger.info(`CORS check for origin: "${origin}"`);
+    
+    if (!origin) {
+      logger.info("No origin header - allowing request");
+      callback(null, true);
+      return;
+    }
+    
+    const isAllowed = whitelist.some((pattern) => {
+      const matches = pattern.test(origin);
+      logger.info(`Pattern ${pattern} matches "${origin}": ${matches}`);
+      return matches;
+    });
+    
+    if (isAllowed) {
+      logger.info(`CORS allowing origin: ${origin}`);
       callback(null, true);
     } else {
       logger.warn(`CORS blocked origin: ${origin}`);
@@ -37,6 +53,8 @@ const corsOptions = {
     }
   },
   credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin', 'Referer', 'sec-ch-ua', 'sec-ch-ua-mobile', 'sec-ch-ua-platform', 'User-Agent', 'DNT'],
 };
 
 app.use(cors(corsOptions));
