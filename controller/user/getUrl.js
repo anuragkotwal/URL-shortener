@@ -14,7 +14,12 @@ const getUrl = catchAsync(async (req, res, next) => {
     return next(err);
   }
 
-  return res.status(200).redirect(url.originalUrl);
+  // Ensure the URL has a protocol (http/https)
+  const redirectUrl = url.originalUrl.startsWith('http') 
+    ? url.originalUrl 
+    : `https://${url.originalUrl}`;
+
+  return res.status(302).redirect(redirectUrl);
 });
 
 module.exports = getUrl;
