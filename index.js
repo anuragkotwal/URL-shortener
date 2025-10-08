@@ -22,17 +22,17 @@ connect(process.env.DATABASE_URL, {
   });
 
 const whitelist = [
-  /http:\/\/localhost:[0-9]{4}/,
-  "https://url-shortener-frontend-rho.vercel.app",
-  "https://url-shortener-frontend-anuragkotwal.vercel.app",
-  "https://anuragkotwal.in",  
-  "https://www.anuragkotwal.in",
+  /^http:\/\/localhost:[0-9]{4}\/?$/,
+  /^https:\/\/url-shortener-frontend-rho\.vercel\.app\/?$/,
+  /^https:\/\/url-shortener-frontend-anuragkotwal\.vercel\.app\/?$/,
+  /^https:\/\/(www\.)?anuragkotwal\.in\/?$/,
 ];
 const corsOptions = {
   origin: function (origin, callback) {
-    if (whitelist.some((el) => origin?.match(el)) || origin === undefined) {
+    if (!origin || whitelist.some((pattern) => pattern.test(origin))) {
       callback(null, true);
     } else {
+      logger.warn(`CORS blocked origin: ${origin}`);
       callback(new Error("Not allowed by CORS"));
     }
   },
