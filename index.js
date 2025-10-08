@@ -25,6 +25,8 @@ const whitelist = [
   /http:\/\/localhost:[0-9]{4}/,
   "https://url-shortener-frontend-rho.vercel.app",
   "https://url-shortener-frontend-anuragkotwal.vercel.app",
+  "https://anuragkotwal.in",  
+  "https://www.anuragkotwal.in",
 ];
 const corsOptions = {
   origin: function (origin, callback) {
